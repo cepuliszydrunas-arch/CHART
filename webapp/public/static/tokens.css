@@ -1,0 +1,242 @@
+/* ==========================================================================
+   HUGOFXLAB — Nordic-Atelier design tokens
+   Spalvos: RGB triplets → Tailwind `rgb(var(--x) / <alpha-value>)`.
+   NĖ VIENOS hardcodintos spalvos komponentuose. Chart lib skaito iš čia (ThemeChartSync).
+
+   Kontrastas (WCAG, ant --color-base #131614), apskaičiuota, ne "iš akies":
+     fg        #E4E7E3  14.6:1   AAA
+     fg-muted  #9AA39C   7.0:1   AAA   ← toolbar ikonos, axis label'iai
+     fg-faint  #6B736D   3.7:1   grafikai OK, tekstui — tik meta/decor
+     accent    #C8AD7E   8.5:1   AAA
+     buy       #22a619   5.7:1   AA
+     sell      #f53030   4.6:1   AA
+     Tekstas ANT sell/buy bg: --color-base (tamsus) 4.6 / 5.7 — praeina.
+     Baltas ant sell = 3.9 — NEPRAEINA. Todėl --color-on-buy/--color-on-sell = base.
+   ========================================================================== */
+
+:root {
+  /* Surface ladder — žalsvas atspalvis (Nordic) */
+  --color-base: 19 22 20;          /* #131614 */
+  --color-surface: 26 30 27;       /* #1a1e1b */
+  --color-surface-2: 32 37 31;     /* #20251f */
+  --color-border: 38 44 40;        /* #262C28 */
+  --color-border-strong: 58 66 60; /* #3a423c */
+
+  /* Text */
+  --color-fg: 228 231 227;         /* #E4E7E3 */
+  --color-fg-muted: 154 163 156;   /* #9AA39C */
+  --color-fg-faint: 107 115 109;   /* #6B736D */
+
+  /* Accent — auksas. LEIDŽIAMA tik: active tool, selected item, focus ring, primary CTA, last-price. */
+  --color-accent: 200 173 126;     /* #C8AD7E */
+  --color-on-accent: 19 22 20;
+
+  /* Market */
+  --color-buy: 34 166 25;          /* #22a619 */
+  --color-sell: 245 48 48;         /* #f53030 */
+  --color-on-buy: 19 22 20;
+  --color-on-sell: 19 22 20;
+
+  /* Status — 6 tonai; kiekvienas .status--* prideda FORMĄ (WCAG 1.4.1) */
+  --color-live: 34 166 25;
+  --color-delayed: 210 160 52;     /* #D2A034 */
+  --color-stale: 154 163 156;
+  --color-offline: 107 115 109;
+  --color-warning: 210 160 52;
+  --color-danger: 245 48 48;
+
+  /* Typography — 11px bazė, 5 tokenai */
+  --fs-meta: 11px;
+  --fs-body: 12px;
+  --fs-label: 13px;
+  --fs-title: 16px;
+  --fs-title-lg: 20px;
+  --font-mono: ui-monospace, 'JetBrains Mono', 'SF Mono', Menlo, Consolas, monospace;
+  --font-sans: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif;
+
+  /* z-index ladder — VIENINTELĖS leidžiamos reikšmės */
+  --z-chart: 10; --z-overlay: 20; --z-panel: 30; --z-sticky: 40;
+  --z-dropdown: 50; --z-modal: 60; --z-popover: 70; --z-tooltip: 80; --z-toast: 90;
+
+  /* Radius ladder — anksčiau hardcodinta (2/3/6px), dabar tokenai */
+  --radius-sm: 2px;   /* badge, meter, ind checkbox */
+  --radius: 4px;      /* default: buttons, inputs, panels, menus, toasts */
+  --radius-md: 3px;   /* nested: menu item, tooltip, kbd, ind item (legacy name) */
+  --radius-lg: 6px;   /* modal */
+
+  /* Elevation — anksčiau hardcodinta menu/modal */
+  --shadow-menu: 0 8px 24px rgb(0 0 0 / 0.45);
+  --shadow-modal: 0 16px 48px rgb(0 0 0 / 0.55);
+  --overlay-backdrop: rgb(0 0 0 / 0.55);
+
+  /* Motion — vienintelės leidžiamos trukmės */
+  --dur-fast: 80ms;    /* hover/focus states */
+  --dur-med: 120ms;    /* meters, fills */
+  --tip-delay: 300ms;  /* tooltip delay */
+
+  --fs-micro: 10px;   /* group labels, kbd, badge (anksčiau hardcodinta) */
+
+  --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px;
+
+  /* Hit-area: desktop 28, touch 44 */
+  --hit: 28px;
+}
+@media (pointer: coarse) { :root { --hit: 44px; } }
+
+/* ==========================================================================
+   LIGHT THEME — Nordic-Atelier šviesus variantas.
+   Struktūra identiška dark; kontrastai ant --color-base #F4F3EF:
+     fg        #1C201D  ~14.9:1  AAA
+     fg-muted  #5A635C   ~6.2:1  AA
+     fg-faint  #8A918B   ~3.0:1  tik meta/decor
+     accent    #8A6D3B   ~5.2:1  AA (tamsesnis auksas šviesiam fone)
+     buy       #157A0E   ~4.7:1  AA
+     sell      #D61F1F   ~4.6:1  AA
+     on-accent/on-buy/on-sell = #FFFFFF šviesioje temoje (virš 4.5:1).
+   ========================================================================== */
+[data-theme='light'] {
+  --color-base: 244 243 239;       /* #F4F3EF */
+  --color-surface: 255 255 255;    /* #FFFFFF */
+  --color-surface-2: 233 232 226;  /* #E9E8E2 */
+  --color-border: 214 213 205;     /* #D6D5CD */
+  --color-border-strong: 176 175 165; /* #B0AFA5 */
+
+  --color-fg: 28 32 29;            /* #1C201D */
+  --color-fg-muted: 90 99 92;      /* #5A635C */
+  --color-fg-faint: 138 145 139;   /* #8A918B */
+
+  --color-accent: 138 109 59;      /* #8A6D3B */
+  --color-on-accent: 255 255 255;
+
+  --color-buy: 21 122 14;          /* #157A0E */
+  --color-sell: 214 31 31;         /* #D61F1F */
+  --color-on-buy: 255 255 255;
+  --color-on-sell: 255 255 255;
+
+  --color-live: 21 122 14;
+  --color-delayed: 154 111 20;     /* #9A6F14 */
+  --color-stale: 90 99 92;
+  --color-offline: 138 145 139;
+  --color-warning: 154 111 20;
+  --color-danger: 214 31 31;
+
+  /* Šviesioje temoje ūgis mažesnis — šešėliai minkštesni */
+  --shadow-menu: 0 8px 24px rgb(0 0 0 / 0.16);
+  --shadow-modal: 0 16px 48px rgb(0 0 0 / 0.22);
+  --overlay-backdrop: rgb(28 32 29 / 0.35);
+}
+
+/* ---- Base ---- */
+*, *::before, *::after { box-sizing: border-box; }
+html { font-size: var(--fs-meta); }
+body {
+  margin: 0; background: rgb(var(--color-base)); color: rgb(var(--color-fg));
+  font-family: var(--font-sans); font-size: var(--fs-body); line-height: 1.4;
+  -webkit-font-smoothing: antialiased;
+}
+.num, td.num, .price, .qty, .pnl, kbd { font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
+
+/* a11y */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
+:focus-visible { outline: 2px solid rgb(var(--color-accent)); outline-offset: 1px; border-radius: var(--radius); }
+:focus:not(:focus-visible) { outline: none; }
+
+/* ---- Vienas Button primitive ---- */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+  height: var(--hit); min-width: var(--hit); padding: 0 var(--space-2);
+  border: 1px solid transparent; border-radius: var(--radius);
+  background: transparent; color: rgb(var(--color-fg-muted));
+  font: inherit; font-size: var(--fs-body); font-weight: 500; cursor: pointer; white-space: nowrap;
+  transition: background var(--dur-fast), color var(--dur-fast), border-color var(--dur-fast);
+}
+.btn:hover { background: rgb(var(--color-surface-2)); color: rgb(var(--color-fg)); }
+.btn:disabled { opacity: 0.4; cursor: not-allowed; }
+.btn[aria-pressed='true'], .btn.is-active { background: rgb(var(--color-accent) / 0.14); color: rgb(var(--color-accent)); }
+.btn--default { background: rgb(var(--color-surface-2)); border-color: rgb(var(--color-border-strong)); color: rgb(var(--color-fg)); }
+.btn--outline { border-color: rgb(var(--color-border-strong)); color: rgb(var(--color-fg)); }
+.btn--primary { background: rgb(var(--color-accent)); color: rgb(var(--color-on-accent)); }
+.btn--primary:hover { background: rgb(var(--color-accent) / 0.85); color: rgb(var(--color-on-accent)); }
+.btn--danger { background: rgb(var(--color-sell)); color: rgb(var(--color-on-sell)); }
+.btn--sm { height: 22px; min-width: 22px; padding: 0 6px; font-size: var(--fs-meta); }
+.btn--lg { height: 32px; padding: 0 var(--space-4); font-size: var(--fs-label); }
+.btn--icon { padding: 0; width: var(--hit); }
+.btn svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; flex: none; }
+.btn .caret { width: 10px; height: 10px; opacity: 0.6; }
+
+/* ---- Status pill — spalva + forma ---- */
+.status { display: inline-flex; align-items: center; gap: 5px; font-size: var(--fs-meta); color: rgb(var(--color-fg-muted)); white-space: nowrap; }
+.status::before { content: ''; width: 7px; height: 7px; display: inline-block; flex: none; }
+.status--live::before    { background: rgb(var(--color-live)); border-radius: 50%; }
+.status--delayed::before { background: rgb(var(--color-delayed)); border-radius: 1px; transform: rotate(45deg) scale(0.85); }
+.status--stale::before   { border: 1.5px solid rgb(var(--color-stale)); border-radius: 50%; width: 5px; height: 5px; }
+.status--offline::before { background: rgb(var(--color-offline)); border-radius: 1px; }
+.status--warning::before { border-left: 4px solid transparent; border-right: 4px solid transparent; border-bottom: 7px solid rgb(var(--color-warning)); width: 0; height: 0; }
+.status--danger::before  { background: rgb(var(--color-danger)); clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%); }
+.status--danger { color: rgb(var(--color-danger)); }
+.status--delayed, .status--warning { color: rgb(var(--color-delayed)); }
+
+/* ---- Mode badge — VISADA matomas ---- */
+.mode { display: inline-flex; align-items: center; gap: 5px; height: 20px; padding: 0 8px; border-radius: var(--radius-sm); font-size: var(--fs-meta); font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
+.mode--paper   { background: rgb(var(--color-surface-2)); color: rgb(var(--color-fg-muted)); border: 1px solid rgb(var(--color-border-strong)); }
+.mode--testnet { background: rgb(var(--color-warning) / 0.15); color: rgb(var(--color-warning)); border: 1px solid rgb(var(--color-warning) / 0.4); }
+.mode--real    { background: rgb(var(--color-danger)); color: rgb(var(--color-on-sell)); }
+.mode--real::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: currentColor; animation: pulse 1.2s ease-in-out infinite; }
+@keyframes pulse { 50% { opacity: 0.3; } }
+
+/* ---- kbd ---- */
+kbd { display: inline-block; min-width: 16px; padding: 0 4px; height: 16px; line-height: 16px; font-size: var(--fs-micro); text-align: center; color: rgb(var(--color-fg-muted)); background: rgb(var(--color-base)); border: 1px solid rgb(var(--color-border-strong)); border-bottom-width: 2px; border-radius: var(--radius-md); }
+.kbds { display: inline-flex; gap: 2px; }
+
+/* ---- Layout primitives ---- */
+.panel { background: rgb(var(--color-surface)); border: 1px solid rgb(var(--color-border)); border-radius: var(--radius); }
+.panel__head { display: flex; align-items: center; justify-content: space-between; gap: var(--space-2); padding: 0 var(--space-3); height: 28px; border-bottom: 1px solid rgb(var(--color-border)); font-size: var(--fs-meta); font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; color: rgb(var(--color-fg-muted)); }
+.panel__body { padding: var(--space-3); }
+.muted { color: rgb(var(--color-fg-muted)); }
+.faint { color: rgb(var(--color-fg-faint)); }
+.buy { color: rgb(var(--color-buy)); }
+.sell { color: rgb(var(--color-sell)); }
+.danger { color: rgb(var(--color-danger)); }
+.accent { color: rgb(var(--color-accent)); }
+.sep { width: 1px; height: 16px; background: rgb(var(--color-border-strong)); flex: none; }
+
+table { border-collapse: collapse; width: 100%; font-size: var(--fs-meta); }
+th, td { padding: 3px var(--space-2); text-align: left; border-bottom: 1px solid rgb(var(--color-border)); white-space: nowrap; }
+th { color: rgb(var(--color-fg-muted)); font-weight: 500; }
+td.num, th.num { text-align: right; }
+
+input, select {
+  height: var(--hit); padding: 0 var(--space-2); font: inherit; font-size: var(--fs-body);
+  background: rgb(var(--color-base)); color: rgb(var(--color-fg));
+  border: 1px solid rgb(var(--color-border-strong)); border-radius: var(--radius);
+}
+input.num { font-family: var(--font-mono); font-variant-numeric: tabular-nums; text-align: right; }
+label { display: flex; flex-direction: column; gap: 3px; font-size: var(--fs-meta); color: rgb(var(--color-fg-muted)); }
+
+.meter { height: 4px; background: rgb(var(--color-border)); border-radius: var(--radius-sm); overflow: hidden; }
+.meter > span { display: block; height: 100%; background: rgb(var(--color-live)); transition: width var(--dur-med); }
+.meter--warn > span { background: rgb(var(--color-warning)); }
+.meter--danger > span { background: rgb(var(--color-danger)); }
+
+/* ---- Menu / dropdown ---- */
+.menu { position: absolute; z-index: var(--z-dropdown); min-width: 200px; padding: 4px; background: rgb(var(--color-surface)); border: 1px solid rgb(var(--color-border-strong)); border-radius: var(--radius); box-shadow: var(--shadow-menu); }
+.menu__group { padding: 6px 8px 2px; font-size: var(--fs-micro); font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: rgb(var(--color-fg-faint)); }
+.menu__item { display: flex; align-items: center; gap: 8px; width: 100%; height: 28px; padding: 0 8px; border: 0; border-radius: var(--radius-md); background: transparent; color: rgb(var(--color-fg)); font: inherit; font-size: var(--fs-body); cursor: pointer; text-align: left; }
+.menu__item:hover { background: rgb(var(--color-surface-2)); }
+.menu__item[aria-checked='true'] { color: rgb(var(--color-accent)); }
+.menu__item svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 1.5; color: rgb(var(--color-fg-muted)); flex: none; }
+.menu__item[aria-checked='true'] svg { color: rgb(var(--color-accent)); }
+.menu__item .grow { flex: 1; }
+.menu__item[aria-disabled='true'] { color: rgb(var(--color-fg-faint)); cursor: not-allowed; }
+.menu__item .badge { margin-left: auto; }
+.badge { font-size: var(--fs-micro); padding: 0 5px; height: 16px; line-height: 14px; border-radius: var(--radius-sm); background: rgb(var(--color-surface-2)); border: 1px solid rgb(var(--color-border)); color: rgb(var(--color-fg-muted)); }
+
+/* ---- Tooltip (CSS-only, data-tip) ---- */
+[data-tip] { position: relative; }
+[data-tip]::after { content: attr(data-tip); position: absolute; left: calc(100% + 8px); top: 50%; transform: translateY(-50%); z-index: var(--z-tooltip); padding: 3px 7px; background: rgb(var(--color-surface-2)); border: 1px solid rgb(var(--color-border-strong)); border-radius: var(--radius-md); color: rgb(var(--color-fg)); font-size: var(--fs-meta); white-space: nowrap; opacity: 0; pointer-events: none; transition: opacity var(--dur-fast) var(--tip-delay); }
+[data-tip]:hover::after, [data-tip]:focus-visible::after { opacity: 1; }
+[data-tip-pos='bottom']::after { left: 50%; top: calc(100% + 6px); transform: translateX(-50%); }
+
+.toast { position: fixed; right: var(--space-4); bottom: 36px; z-index: var(--z-toast); display: flex; flex-direction: column; gap: 6px; }

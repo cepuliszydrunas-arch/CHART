@@ -1,0 +1,7 @@
+# Nukopijuok į .dev.vars ir sugeneruok: openssl rand -hex 32
+API_TOKEN=
+# Mainnet reikalauja ABIEJŲ 'true' + ne-tuščio allowedSymbols (žr. core/risk/engine.ts mainnetGuard)
+ALLOW_MAINNET=false
+RISK_LIMITS_CONFIRMED=false
+# CORS allowlist — comma-separated. Production: 'https://yourdomain.com'
+ALLOWED_ORIGINS=http://localhost:3000
